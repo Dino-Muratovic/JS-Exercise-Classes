@@ -90,6 +90,7 @@ class Car {
   }
 
   drive(distance){
+    
     //calculate maximum distance car can travel and assign to a variable    
     //compare maxDistance variable to distance
 
@@ -97,17 +98,20 @@ class Car {
     // 1. tank is equal to 0;
     // 2. odomoter is qual to odometer + maxDistance
     // 3. return the message saying "I ran out of fuel at x miles!" x being `odometer`
-
     //else 
     // 1. tank equals tank - distance / milesPerGallon;
     // 2. set odometer = odometer + distance
-    
-    this.odometer = this.odometer + distance;    
-    this.tank = this.tank - distance / this.milesPerGallon;
-    if (this.tank === 0){
-      return `I ran out of fuel at ${this.odometer} miles!`; 
-    }
-    // return `I ran out of fuel at ${this.odometer} miles!`;          
+
+    let maxDistance = this.tank * this.milesPerGallon;
+
+    if (distance > maxDistance){
+      this.tank = 0;
+      this.odometer = this.odometer + maxDistance;
+      return `I ran out of fuel at ${this.odometer} miles!`;
+    }else {
+      this.tank = this.tank - distance / this.milesPerGallon;
+      this.odometer = this.odometer + distance;
+    }                
   }
   
 } // this closes car CLASS
