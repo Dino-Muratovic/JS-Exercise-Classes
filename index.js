@@ -41,8 +41,28 @@ class Airplane {
 */
 
 class Person {
+  constructor(name, age, stomach){
+    this.name = name,
+    this.age = age,
+    this.stomach = [];
+  }
 
-}
+  eat(someFood){
+    if(this.stomach.length < 10){ // eat method has no effect if there are 10 items in the stomach
+      this.stomach.push(someFood);
+    }
+  }
+
+  poop() {
+    this.stomach = [];
+  }
+
+  toString(){
+    return `${this.name}, ${this.age}`;
+  }
+} // this closes Class
+
+
 
 /*
   TASK 2
@@ -59,8 +79,38 @@ class Person {
 */
 
 class Car {
+  constructor(model, milesPerGallon){
+    this.model = model,
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0,
+    this.odometer = 0    
+  }
+  fill(gallons){
+    this.tank = this.tank + gallons; // add gallons to the tank -- INCREMENT
+  }
 
-}
+  drive(distance){
+    //calculate maximum distance car can travel and assign to a variable    
+    //compare maxDistance variable to distance
+
+    //if distance is greater than maxDistance 
+    // 1. tank is equal to 0;
+    // 2. odomoter is qual to odometer + maxDistance
+    // 3. return the message saying "I ran out of fuel at x miles!" x being `odometer`
+
+    //else 
+    // 1. tank equals tank - distance / milesPerGallon;
+    // 2. set odometer = odometer + distance
+    
+    this.odometer = this.odometer + distance;    
+    this.tank = this.tank - distance / this.milesPerGallon;
+    if (this.tank === 0){
+      return `I ran out of fuel at ${this.odometer} miles!`; 
+    }
+    // return `I ran out of fuel at ${this.odometer} miles!`;          
+  }
+  
+} // this closes car CLASS
 
 /*
   TASK 3
@@ -75,7 +125,14 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-
+  constructor(object){
+    this.name = object.name;
+    this.age = object.age;
+    this.location = object.location
+  }
+  speak(){
+    return `Hello my name is ${this.name}, I am from ${this.location}`;
+  }
 }
 
 /*
@@ -92,9 +149,22 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian{
+  constructor (object){
+    super(object);
+    this.specialty = object.specialty;
+    this.favLanguage = object.favLanguage;
+    this.catchPhrase = object.catchPhrase;
+  }
+demo(subject){
+  return `Today we are leaning about ${subject}`;
 }
+
+grade(student,subject){
+  return `${student.name} receives a perfect score on ${subject}`
+}
+
+} // this closes class
 
 /*
   TASK 5
@@ -111,9 +181,41 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
+class Student extends Lambdasian{
+  constructor(object){
+    super(object);
+    this.previousBackground = object.previousBackground;
+    this.className = object.className;
+    this.favSubjects = object.favSubjects;    
+  }
 
-}
+
+  listSubjects (){
+      
+    // console.log(this.favSubjects);
+    return `Loving ${this.favSubjects}`;
+  } // this closes listSubjects
+
+
+    // let myFavouriteSubjects = " ";
+    // this.favSubjects.forEach(function(value){ 
+    //   myFavouriteSubjects = myFavouriteSubjects + value; 
+    //   console.log(myFavouriteSubjects);    
+    //   return `Loving ${myFavouriteSubjects}`;    
+    // });    
+  
+
+  PRAssignment (subject){
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`;
+  }
+
+  
+
+} // this closes CLASS Student
 
 /*
   TASK 6
@@ -128,7 +230,20 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
+class ProjectManager extends Instructor{
+  constructor(object){
+    super(object);
+    this.gradClassName = object.gradClassName;
+    this.favInstructor = object.favInstructor;
+  }
+
+  standUp (channel){
+    return `${this.name} announces to ${channel}, @channel standy times! `;
+  }
+
+  debugsCode(studentObject,subject){
+    return `${this.name} debugs ${studentObject.name}'s code on ${subject}`; // studentObject.name accessing name inside of that object
+  }
 
 }
 
